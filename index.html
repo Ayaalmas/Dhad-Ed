@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة ضاد التعليمية</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="img/Dhad%20Icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/Dhad%20Icon.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="img/Dhad%20Icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/Dhad%20Icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/Dhad%20Icon.png">
+  <link rel="shortcut icon" href="img/Dhad%20Icon.png">
+  <meta name="theme-color" content="#00796B">
+  <script>
+    (function() {
+      const src = 'img/Dhad%20Icon.png'; // rectangular logo provided
+      const targetSizes = [16, 32, 64, 192, 256, 512, 180]; // include 180 for apple-touch
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function() {
+        targetSizes.forEach((size) => {
+          const canvas = document.createElement('canvas');
+          canvas.width = size; canvas.height = size;
+          const ctx = canvas.getContext('2d');
+          // Optional solid background to maximize contrast (uncomment to use brand color)
+          // ctx.fillStyle = '#ffffff'; // or '#f7941d'
+          // ctx.fillRect(0, 0, size, size);
+          ctx.clearRect(0, 0, size, size);
+
+          // Scale to fit entire square with NO padding to appear larger, keep aspect ratio
+          const padding = 0;
+          const maxW = size;
+          const maxH = size;
+          const scale = Math.min(maxW / img.width, maxH / img.height);
+          const drawW = Math.round(img.width * scale);
+          const drawH = Math.round(img.height * scale);
+          const dx = Math.round((size - drawW) / 2);
+          const dy = Math.round((size - drawH) / 2);
+          ctx.drawImage(img, dx, dy, drawW, drawH);
+
+          const dataUrl = canvas.toDataURL('image/png');
+
+          if (size === 180) {
+            let apple = document.querySelector('link[rel="apple-touch-icon"][sizes="180x180"]');
+            if (!apple) { apple = document.createElement('link'); apple.rel = 'apple-touch-icon'; apple.sizes = '180x180'; }
+            apple.href = dataUrl; document.head.appendChild(apple);
+          } else {
+            let link = document.querySelector(`link[rel="icon"][sizes="${size}x${size}"]`);
+            if (!link) { link = document.createElement('link'); link.rel = 'icon'; link.type = 'image/png'; link.sizes = `${size}x${size}`; }
+            link.href = dataUrl; document.head.appendChild(link);
+          }
+        });
+      };
+      img.src = src;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/"
+  }
+}
+</script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" data-type="module" src="index.jsx"></script>
+
+</body>
+</html>
